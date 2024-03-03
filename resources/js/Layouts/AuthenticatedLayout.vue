@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import MenuDrawer from "@/Components/MenuDrawer/MenuDrawer.vue";
-import { ref } from "vue";
-import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
-import NavLink from "@/Components/NavLink.vue";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/vue3";
-
-const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
@@ -49,8 +43,16 @@ const showingNavigationDropdown = ref(false);
                 </template>
 
                 <template #content>
-                  <DropdownLink :href="route('profile.edit')"> Profile</DropdownLink>
-                  <DropdownLink :href="route('logout')" method="post" as="button"> Log Out</DropdownLink>
+                  <DropdownLink :href="route('profile.edit')">
+                    <Link class="flex flex-row items-center" href="/my-account">
+                      <span class="material-symbols-outlined">person</span> <span class="ml-4">Minha Conta</span>
+                    </Link>
+                  </DropdownLink>
+                  <DropdownLink :href="route('logout')" method="post" as="button">
+                    <div class="flex flex-row">
+                      <span class="material-symbols-outlined">logout</span> <span class="ml-4">Logout</span>
+                    </div>
+                  </DropdownLink>
                 </template>
               </Dropdown>
             </div>
