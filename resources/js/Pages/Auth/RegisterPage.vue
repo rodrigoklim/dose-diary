@@ -65,7 +65,7 @@ watch([form.email, form.password], ([e, p]) => {
               autocomplete="username"
               rules="email"
               label="Email"
-              @error-message="(val) => (errorMessage = val)"
+              @error-message="(val: string) => (errorMessage = val)"
             />
           </div>
 
@@ -83,7 +83,7 @@ watch([form.email, form.password], ([e, p]) => {
               rules="length"
               label="Senha"
               @change-visibility="passwordVisibility = !passwordVisibility"
-              @error-message="(val) => (errorMessage = val)"
+              @error-message="(val: string) => (errorMessage = val)"
             />
           </div>
 

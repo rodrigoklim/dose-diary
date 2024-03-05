@@ -1,22 +1,18 @@
 <script lang="ts" setup>
 import { MenuItem, menu } from "@/Components/MenuDrawer/menu";
+import { Link } from "@inertiajs/vue3";
 import { ref } from "vue";
 
 const menuitems = ref<MenuItem[]>(menu);
-
-const drawerOpen = ref(true);
-const itemSelected = ref(null);
+const itemSelected = ref<MenuItem>();
 const childrenDrawerOpen = ref(false);
 
-const selectMenu = (item) => {
+const selectMenu = (item: MenuItem) => {
   itemSelected.value = item;
   childrenDrawerOpen.value = true;
 };
 
-const showTooltip = ref([]);
-const toggleDrawer = () => {
-  drawerOpen.value = !drawerOpen.value;
-};
+const showTooltip = ref([] as boolean[]);
 
 const closeChildrenDrawer = () => {
   childrenDrawerOpen.value = false;
@@ -24,9 +20,14 @@ const closeChildrenDrawer = () => {
 </script>
 
 <template>
-  <div class="flex">
-    <div class="w-16 h-screen bg-primary p-2 flex justify-center">
+  <div class="flex h-screen">
+    <div class="w-16 bg-primary p-2 flex justify-center">
       <ul>
+        <li class="mb-8 mt-2">
+          <Link :href="route('dashboard')">
+            <img src="../../../assets/img/logo.png" alt="dose-diary" style="height: 60px; width: auto" />
+          </Link>
+        </li>
         <li v-for="(item, index) in menuitems" :key="item.label" class="relative my-2">
           <button
             class="flex items-center p-2 rounded-md text-gray-700 hover:bg-gray-300 w-full"
