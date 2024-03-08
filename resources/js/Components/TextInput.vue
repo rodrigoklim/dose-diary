@@ -6,7 +6,7 @@ const props = defineProps<{
   label: string;
   type: "text" | "password" | "email";
   showPassword?: boolean;
-  rules: "required" | "email" | "phone" | "length";
+  rules?: "required" | "email" | "phone" | "length";
 }>();
 
 const emit = defineEmits<{

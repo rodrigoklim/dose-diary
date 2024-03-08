@@ -33,6 +33,7 @@
 }
 
 html, body {
+  @apply bg-gray-100 h-[100%];
+
   font-family: 'poppins-regular', 'serif';
-  height: 100%;
 }

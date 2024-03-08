@@ -21,9 +21,20 @@ Route::get('/', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-  Route::get('/my-account', [ProfileController::class, 'edit'])->name('profile.edit');
-  Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+  Route::prefix('/my-account')->group(function () {
+    Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    Route::get('{url}', function ($url) {
+      if (in_array($url, ['edit-personal-info', 'edit-contact-info', 'change-password'])) {
+        return app(ProfileController::class)->edit(request(), $url);
+      }
+
+      return abort(404);
+    });
+
+    Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+  });
 });
 
 require __DIR__ . '/auth.php';

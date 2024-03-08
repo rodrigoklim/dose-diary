@@ -5,6 +5,7 @@ import Modal from "@/Components/Modal.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SimpleForm from "@/Components/SimpleForm.vue";
 import TextInput from "@/Components/TextInput.vue";
+import { User } from "@/types";
 import { useForm, usePage } from "@inertiajs/vue3";
 
 defineProps<{
@@ -12,27 +13,27 @@ defineProps<{
   status?: string;
 }>();
 
-const user = usePage().props.auth.user;
+const user = usePage().props.auth.user as User;
 
 const form = useForm({
-  name: user.name,
-  last_name: user.last_name,
+  phone: user.name,
+  email: user.last_name,
 });
 </script>
 
 <template>
   <Modal :show="true" max-width="sm">
-    <SimpleForm title="Informações Pessoais" subtitle="Atualize seu nome e sobrenome.">
+    <SimpleForm title="Informações de Contato" subtitle="Atualize seu nome e sobrenome.">
       <form class="mt-6 space-y-6" @submit.prevent="form.patch(route('profile.update'))">
         <div>
-          <InputLabel for="name" value="Nome" />
+          <InputLabel for="name" value="Email" />
 
           <TextInput
             id="name"
-            v-model="form.name"
-            type="text"
+            v-model="form.email"
+            type="email"
             class="mt-1 block w-full"
-            label="Nome"
+            label="Email"
             required
             autofocus
             autocomplete="name"
@@ -40,21 +41,21 @@ const form = useForm({
         </div>
 
         <div>
-          <InputLabel for="email" value="Sobrenome" />
+          <InputLabel for="email" value="Celular" />
 
           <TextInput
             id="email"
-            v-model="form.last_name"
+            v-model="form.phone"
             type="text"
             class="mt-1 block w-full"
-            label="Sobrenome"
+            label="Telefone"
             required
             autocomplete="username"
           />
         </div>
 
         <div>
-          <InputError class="mt-2" :message="form.errors.name" />
+          <InputError class="mt-2" :message="form.errors.email" />
         </div>
 
         <div class="flex items-center gap-4 justify-center">

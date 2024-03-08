@@ -30,11 +30,13 @@ const submit = () => {
 
 const passwordVisibility = ref(false);
 
-watch([form.email, form.password], ([e, p]) => {
-  if (e && p) {
+watch(
+  form,
+  () => {
     errorMessage.value = "";
-  }
-});
+  },
+  { deep: true },
+);
 </script>
 
 <template>
@@ -44,7 +46,7 @@ watch([form.email, form.password], ([e, p]) => {
     </Head>
     <form class="w-full justify-center flex" @submit.prevent="submit">
       <auth-card
-        :error-message="errorMessage || form.errors.email"
+        :error-message="errorMessage || form.errors.email || ''"
         :loading="form.processing"
         primary-btn-title="Login"
         primary-btn-type="submit"
